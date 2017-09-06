@@ -37,7 +37,7 @@ return [
 ```
 
 ### How To Create Virtual Host Using Vhost Manager?
-Well its super simple, suppose you need to host `test/public` folder from your `htdocs` or `www` directory, based on your local setup to the `testing.dev` domain, then you need to go to the app `Vhost-Manager` & run the following command.
+Well its super simple, suppose you need to host `test/public` folder from your `htdocs` or `www` directory, (based on your local setup) to the `testing.dev` domain, then you need to go to the app `Vhost-Manager` & run the following command.
 ```bash
 php vhost create:host -r "test/public" -d "testing.dev"
 ```
