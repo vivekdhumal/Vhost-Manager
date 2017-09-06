@@ -1,0 +1,5 @@
+
+<VirtualHost *:80>
+    DocumentRoot "{{documentRoot}}"
+    ServerName {{domain}}
+</VirtualHost>

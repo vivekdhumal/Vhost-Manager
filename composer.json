@@ -1,0 +1,23 @@
+{
+    "name": "vivek/vhost-manager",
+    "description": "This will helps to create virtual host on a local machine.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Vivek Dhumal",
+            "email": "vivekdhumalmail@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "require-dev": {
+        "symfony/console": "^3.3",
+        "illuminate/filesystem": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vhost\\": "src/"
+        }
+    }
+}
