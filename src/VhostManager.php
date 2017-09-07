@@ -49,7 +49,7 @@ class VhostManager
             throw new \Exception("The domain {$domain} is already exists, please try different");
         }
 
-        $documentRoot = trim($static->config['workpace_path'], '/') . '/'. $documentRoot;
+        $documentRoot = trim($static->config['workspace_path'], '/') . '/'. $documentRoot;
 
         if ($static->filesystem->exists($documentRoot)) {
             $apacheVhostsTags = $static->getApacheVhostsTags($documentRoot, $domain);

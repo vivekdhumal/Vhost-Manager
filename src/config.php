@@ -13,5 +13,5 @@ return [
      * Your workspace path, this could be your xamp or wamp path.
      * for wamp it'll look like E:\wamp\www
      */
-    'workpace_path' => 'E:\xampp\htdocs',
+    'workspace_path' => 'E:\xampp\htdocs',
 ];
