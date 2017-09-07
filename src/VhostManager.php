@@ -92,6 +92,12 @@ class VhostManager
         );
     }
 
+    /**
+     * Check if the domain is already exists in the host file.
+     *
+     * @param   string  $domain
+     * @return  int/bool
+     */
     protected function domainExists($domain)
     {
         return strpos(
