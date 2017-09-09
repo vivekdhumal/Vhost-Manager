@@ -89,30 +89,24 @@ class VhostManager
     /**
      * Generate the host array.
      *
-     * @param  string  $string
+     * @param  string  $content
      * @return array
      */
-    protected function generateHostArray($string)
+    protected function generateHostArray($content)
     {
-        $string = preg_replace("/(# .*)/", "", $string);
+        $content = trim(preg_replace(["/(# .*)/", "/(##.*)/", "/(#)/"], "", $content));
 
-        $string = preg_replace("/(##.*)/", "", $string);
-
-        $string = str_replace('#', '', $string);
-
-        $string = trim($string);
-
-        $string = explode(' ', $string);
+        $content = explode(' ', $content);
 
         $hostArray = [];
         $arrayIterator = 0;
 
-        foreach ($string as $key => $row) {
+        foreach ($content as $key => $row) {
             if (strtolower(strip_tags($row)) === 'documentroot') {
                 $hostArray[$arrayIterator]['document_root'] = str_replace(
                     ['"', '/'],
                     ['', '\\'],
-                    trim(strtolower(strip_tags(isset($string[$key+1]) ? $string[$key+1] : '')))
+                    trim(strtolower(strip_tags(isset($content[$key+1]) ? $content[$key+1] : '')))
                 );
             }
 
@@ -120,7 +114,7 @@ class VhostManager
                 $hostArray[$arrayIterator]['server_name'] = str_replace(
                     ['"', '/'],
                     ['', '\\'],
-                    trim(strtolower(strip_tags(isset($string[$key+1]) ? $string[$key+1] : '')))
+                    trim(strtolower(strip_tags(isset($content[$key+1]) ? $content[$key+1] : '')))
                 );
 
                 $arrayIterator += 1;
