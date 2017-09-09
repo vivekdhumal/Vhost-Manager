@@ -2,6 +2,7 @@
 
 namespace Vhost;
 
+use Vhost\Commands\HostListCommand;
 use Vhost\Commands\CreateHostCommand;
 use Symfony\Component\Console\Application;
 
@@ -49,6 +50,7 @@ class VhostApplication extends Application
     {
         $this->application->addCommands([
             new CreateHostCommand,
+            new HostListCommand,
         ]);
     }
 }

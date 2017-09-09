@@ -71,6 +71,66 @@ class VhostManager
     }
 
     /**
+     * Get the hosts.
+     *
+     * @return array
+     */
+    public static function getHosts()
+    {
+        $static = new static;
+
+        $hosts = $static->generateHostArray(
+            $static->filesystem->get($static->config['apache_host_path'])
+        );
+
+        return $hosts;
+    }
+
+    /**
+     * Generate the host array.
+     *
+     * @param  string  $string
+     * @return array
+     */
+    protected function generateHostArray($string)
+    {
+        $string = preg_replace("/(# .*)/", "", $string);
+
+        $string = preg_replace("/(##.*)/", "", $string);
+
+        $string = str_replace('#', '', $string);
+
+        $string = trim($string);
+
+        $string = explode(' ', $string);
+
+        $hostArray = [];
+        $arrayIterator = 0;
+
+        foreach ($string as $key => $row) {
+            if (strtolower(strip_tags($row)) === 'documentroot') {
+                $hostArray[$arrayIterator]['document_root'] = str_replace(
+                    ['"', '/'],
+                    ['', '\\'],
+                    trim(strtolower(strip_tags(isset($string[$key+1]) ? $string[$key+1] : '')))
+                );
+            }
+
+            if (strtolower(strip_tags($row)) === 'servername') {
+                $hostArray[$arrayIterator]['server_name'] = str_replace(
+                    ['"', '/'],
+                    ['', '\\'],
+                    trim(strtolower(strip_tags(isset($string[$key+1]) ? $string[$key+1] : '')))
+                );
+
+                $arrayIterator += 1;
+            }
+        }
+
+        return $hostArray;
+    }
+
+    /**
      * Gets the apache vhosts tags from the stub.
      *
      * @param   string  $documentRoot
