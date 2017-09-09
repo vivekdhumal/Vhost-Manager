@@ -6,6 +6,9 @@ It'll allow user to create virtual host using a single command, without going in
 
 The application is only **Windows** user.
 
+### Requirements
+php >= 7.0.0
+
 ### Install
 ```bash
 git clone https://github.com/vivekdhumal/Vhost-Manager.git
@@ -45,5 +48,13 @@ For help run the following command, it will show you the description about the i
 ```bash
 php vhost create:host --help
 ```
+
+### List Hosts
+You can view your virtual hosts right from your terminal, just hit the following command
+```bash
+php vhost host:list
+```
+
+
 
 Thank you.
