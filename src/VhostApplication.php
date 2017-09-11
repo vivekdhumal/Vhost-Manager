@@ -6,7 +6,7 @@ use Vhost\Commands\HostListCommand;
 use Vhost\Commands\CreateHostCommand;
 use Symfony\Component\Console\Application;
 
-class VhostApplication extends Application
+class VhostApplication
 {
     /**
      * Create an instance of a symfony console application.
