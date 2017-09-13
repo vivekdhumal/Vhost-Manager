@@ -45,7 +45,7 @@ class CreateHostCommand extends Command
         $hostCreated = VhostManager::createHost($input->getOption('root'), $domain);
 
         if ($hostCreated) {
-            $output->writeln("<info>This new virtual host is up and running at http://{$domain}</info>");
+            $output->writeln("<info>New virtual host \"http://{$domain}\" has been created.</info>");
             $output->writeln("<info>Please restart your apache server.</info>");
         } else {
             $output->writeln("<error>Something went wrong, please check your configuration.</error>");
