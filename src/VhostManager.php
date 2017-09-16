@@ -30,7 +30,7 @@ class VhostManager
     {
         $this->filesystem = new Filesystem;
 
-        $this->config = require 'src/config.php';
+        $this->config = require __DIR__.'/config.php';
     }
 
     /**
