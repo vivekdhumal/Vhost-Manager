@@ -14,4 +14,8 @@ return [
      * for wamp it'll look like E:\wamp\www
      */
     'workspace_path' => 'E:\xampp\htdocs',
+    /**
+     * local ip address.
+     */
+    'local_ip' => '127.0.0.1',
 ];

@@ -45,11 +45,11 @@ class VhostManager
     {
         $static = new static;
 
-        if ($static->domainExists($domain) !== false) {
+        if ($static->domainExists($domain) !== false && $static->getVhostFromDomain($domain) !== false) {
             throw new \Exception("The domain {$domain} is already exists, please try different");
         }
 
-        $documentRoot = trim($static->config['workspace_path'], '/') . '/'. $documentRoot;
+        $documentRoot = str_replace("\\", "/", trim($static->config['workspace_path'], '/')) . '/'. $documentRoot;
 
         if ($static->filesystem->exists($documentRoot)) {
             $apacheVhostsTags = $static->getApacheVhostsTags($documentRoot, $domain);
@@ -61,7 +61,7 @@ class VhostManager
 
             $hostEdited = (bool) $static->filesystem->append(
                 $static->config['windows_host_path'],
-                "\n127.0.0.1       {$domain}"
+                "\n{$static->config['local_ip']}       {$domain}"
             );
 
             return ($apacheHostEdited && $hostEdited);
@@ -87,6 +87,86 @@ class VhostManager
     }
 
     /**
+     * Removes a host.
+     *
+     * @param   string  $domain
+     * @throws  \Exception
+     * @return bool
+     */
+    public static function removeHost($domain)
+    {
+        $static = new static;
+
+        $virtualHost = $static->getVhostFromDomain($domain);
+
+        if ($static->domainExists($domain) === false && $virtualHost === false) {
+            throw new \Exception("The domain {$domain} does not exist.");
+        }
+
+        // Remove from windows host file.
+        $removedFromWindowsHosts = $static->replaceFileContent(
+            "{$static->config['local_ip']}       {$domain}",
+            "",
+            $static->config['windows_host_path']
+        );
+
+        // Remove from apache httpd-vhosts.conf
+        $removedFromhttpdVhost = $static->replaceFileContent(
+            trim($static->getApacheVhostsTags($virtualHost['document_root'], $virtualHost['server_name'])),
+            "",
+            $static->config['apache_host_path']
+        );
+
+        return $removedFromWindowsHosts && $removedFromhttpdVhost;
+    }
+
+    /**
+     * Replace the given file content.
+     *
+     * @param   string  $search
+     * @param   string  $replace
+     * @param   string  $path
+     * @return  bool
+     */
+    protected function replaceFileContent($search, $replace, $path)
+    {
+        return (bool) $this->filesystem->put(
+            $path,
+            preg_replace(
+                "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", // replace empty lines with a single line break
+                "\n",
+                str_replace(
+                    $search,
+                    $replace,
+                    $this->filesystem->get($path)
+                )
+            )
+        );
+    }
+
+    /**
+     * Gets the virtual host from domain.
+     *
+     * @param   string $domain
+     * @return  bool|Array
+     */
+    protected function getVhostFromDomain($domain)
+    {
+        $hosts = $this->getHosts();
+
+        $virtualHost = current(
+            array_filter(
+                $hosts,
+                function ($item) use ($domain) {
+                    return (isset($item['server_name']) && $item['server_name'] === $domain);
+                }
+            )
+        );
+
+        return $virtualHost;
+    }
+
+    /**
      * Generate the host array.
      *
      * @param  string  $content
@@ -109,9 +189,9 @@ class VhostManager
 
             if (array_key_exists($attribute, $hostAttributes)) {
                 $hostArray[$arrayIterator][$hostAttributes[$attribute]] = str_replace(
-                    ['"', '/'],
-                    ['', '\\'],
-                    trim(strtolower(strip_tags(isset($contentArray[$key+1]) ? $contentArray[$key+1] : '')))
+                    ['"'],
+                    [''],
+                    trim(strip_tags(isset($contentArray[$key+1]) ? $contentArray[$key+1] : ''))
                 );
 
                 if ($attribute === 'servername') {

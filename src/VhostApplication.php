@@ -2,8 +2,9 @@
 
 namespace Vhost;
 
-use Vhost\Commands\HostListCommand;
-use Vhost\Commands\CreateHostCommand;
+use Vhost\Commands\AllCommand;
+use Vhost\Commands\CreateCommand;
+use Vhost\Commands\RemoveCommand;
 use Symfony\Component\Console\Application;
 
 class VhostApplication
@@ -49,8 +50,9 @@ class VhostApplication
     protected function registerCommands()
     {
         $this->application->addCommands([
-            new CreateHostCommand,
-            new HostListCommand,
+            new AllCommand,
+            new CreateCommand,
+            new RemoveCommand,
         ]);
     }
 }

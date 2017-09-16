@@ -36,25 +36,32 @@ return [
      * for wamp it'll look like E:\wamp\www
      */
     'workpace_path' => 'E:\xampp\htdocs',
+    /**
+     * local ip address.
+     */
+    'local_ip' => '127.0.0.1',
 ];
 ```
 
-### How to Create a Virtual Host Using Vhost Manager?
-Well its super simple, suppose you need to host `test/public` folder from your `htdocs` or `www` directory, (based on your local setup) to the `testing.dev` domain, then you need to go to the app `Vhost-Manager` & run the following command.
+### Create Host
+Go to the app `Vhost-Manager` & run the following command.
 ```bash
-php vhost create:host -r "test/public" -d "testing.dev"
+php vhost create "test/public" "testing.dev"
 ```
-For help run the following command, it will show you the description about the input options.
-```bash
-php vhost create:host --help
-```
+This will take document root as first argument and domain as second argument.
 
 ### List Hosts
-You can view your virtual hosts right from your terminal, just hit the following command
+You can view all your virtual hosts right from your terminal, just hit the following command.
 ```bash
-php vhost host:list
+php vhost all
 ```
 
+### Remove Host
+You can also remove virtual hosts from your host files, just hit the following command.
+```bash
+php vhost remove "testing.dev"
+```
+This will take domain as a argument.
 
-
-Thank you.
+### License
+The Vhost Manager is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
