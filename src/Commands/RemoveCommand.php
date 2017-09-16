@@ -42,7 +42,7 @@ class RemoveCommand extends Command
                 "<info>The domain http://{$domain} has been removed successfully from the host files.</info>"
             );
         } else {
-            $output->writeln("<error>Something wen wrong, please check your configuration.</error>");
+            $output->writeln("<error>Something went wrong, please check your configuration.</error>");
         }
     }
 }
