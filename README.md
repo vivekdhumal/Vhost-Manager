@@ -45,7 +45,7 @@ return [
 ```
 
 ### Create Host
-Go to the app `Vhost-Manager` & run the following command.
+To create a host run the following command.
 ```bash
 vhost create "test/public" "testing.dev"
 ```
