@@ -2,7 +2,7 @@
 
 I have created this small php symfony based command line application to scratch my own itch.
 
-It'll allow user to create virtual host using a single command, without going into the host files.
+It'll allow user to manage virtual hosts using the commands, without each time going into the host files.
 
 The application is only **Windows** user.
 
@@ -17,6 +17,7 @@ cd Vhost-Manager
 
 composer install
 ```
+**\*also make sure to add `YOUR_DRIVE\Vhost-Manager\bin` path to windows environment variables.**
 
 ### Configuration
 
@@ -46,20 +47,20 @@ return [
 ### Create Host
 Go to the app `Vhost-Manager` & run the following command.
 ```bash
-php vhost create "test/public" "testing.dev"
+vhost create "test/public" "testing.dev"
 ```
 This will take document root as first argument and domain as second argument.
 
 ### List Hosts
 You can view all your virtual hosts right from your terminal, just hit the following command.
 ```bash
-php vhost all
+vhost all
 ```
 
 ### Remove Host
 You can also remove virtual hosts from your host files, just hit the following command.
 ```bash
-php vhost remove "testing.dev"
+vhost remove "testing.dev"
 ```
 This will take domain as a argument.
 

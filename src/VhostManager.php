@@ -132,14 +132,10 @@ class VhostManager
     {
         return (bool) $this->filesystem->put(
             $path,
-            preg_replace(
-                "/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", // replace empty lines with a single line break
-                "\n",
-                str_replace(
-                    $search,
-                    $replace,
-                    $this->filesystem->get($path)
-                )
+            str_replace(
+                $search,
+                $replace,
+                $this->filesystem->get($path)
             )
         );
     }
@@ -174,6 +170,8 @@ class VhostManager
      */
     protected function generateHostArray($content)
     {
+        $content = trim(preg_replace(["/(# .*)/", "/(##.*)/", "/(#)/"], "", $content));
+
         $contentArray = explode(' ', $content);
 
         $hostAttributes = [
