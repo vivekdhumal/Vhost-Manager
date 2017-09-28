@@ -65,4 +65,7 @@ vhost remove "testing.dev"
 This will take domain as a argument.
 
 ### License
-The Vhost Manager is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Vhost Manager is open-sourced software licensed under the [MIT license](https://github.com/vivekdhumal/Vhost-Manager/blob/master/LICENSE).
+
+### Code of Conduct
+[Read More](https://github.com/vivekdhumal/Vhost-Manager/blob/master/CODE_OF_CONDUCT.md)
