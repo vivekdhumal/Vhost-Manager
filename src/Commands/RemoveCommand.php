@@ -3,6 +3,9 @@
 namespace Vhost\Commands;
 
 use Vhost\VhostManager;
+use Vhost\VhostNotification;
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,10 +41,14 @@ class RemoveCommand extends Command
         $domain = $input->getArgument('domain');
 
         if (VhostManager::removeHost($domain)) {
+            VhostNotification::success("The domain http://{$domain} has been removed successfully from your host files.");
+
             $output->writeln(
-                "<info>The domain http://{$domain} has been removed successfully from the host files.</info>"
+                "<info>The domain http://{$domain} has been removed successfully from your host files.</info>"
             );
         } else {
+            VhostNotification::error("Something went wrong, please check your configuration.");
+
             $output->writeln("<error>Something went wrong, please check your configuration.</error>");
         }
     }

@@ -3,6 +3,9 @@
 namespace Vhost\Commands;
 
 use Vhost\VhostManager;
+use Vhost\VhostNotification;
+use Joli\JoliNotif\Notification;
+use Joli\JoliNotif\NotifierFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -43,9 +46,13 @@ class CreateCommand extends Command
         $hostCreated = VhostManager::createHost($input->getArgument('root'), $domain);
 
         if ($hostCreated) {
+            VhostNotification::success("New virtual host \"http://{$domain}\" has been created.\nPlease restart your apache server.");
+
             $output->writeln("<info>New virtual host \"http://{$domain}\" has been created.</info>");
             $output->writeln("<info>Please restart your apache server.</info>");
         } else {
+            VhostNotification::error("Something went wrong, please check your configuration.");
+
             $output->writeln("<error>Something went wrong, please check your configuration.</error>");
         }
     }
