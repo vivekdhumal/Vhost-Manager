@@ -4,8 +4,6 @@ namespace Vhost\Commands;
 
 use Vhost\VhostManager;
 use Vhost\VhostNotification;
-use Joli\JoliNotif\Notification;
-use Joli\JoliNotif\NotifierFactory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
