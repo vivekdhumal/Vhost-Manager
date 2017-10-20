@@ -43,11 +43,7 @@ class VhostNotification {
     {
         $self = new static;
 
-        $self->notification->setBody($message);
-
-        $self->notification->setIcon(getcwd().'/src/icon/success.png');
-
-        $self->notifier->send($self->notification);
+        $self->notify($message, getcwd().'/src/icon/success.png');
     }
 
     /**
@@ -60,9 +56,25 @@ class VhostNotification {
     {
         $self = new static;
 
+        $self->notify($message, getcwd().'/src/icon/error.png');
+    }
+
+    /**
+     * Display a notification without icon.
+     *
+     * @param string $message
+     * @param string $icon
+     * @return void
+     */
+    public static function notify($message, $icon = null)
+    {
+        $self = new static;
+
         $self->notification->setBody($message);
 
-        $self->notification->setIcon(getcwd().'/src/icon/error.png');
+        if(!is_null($icon)) {
+            $self->notification->setIcon($icon);
+        }
 
         $self->notifier->send($self->notification);
     }
