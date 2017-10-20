@@ -43,7 +43,7 @@ class VhostNotification {
     {
         $self = new static;
 
-        $self->notify($message, getcwd().'/src/icon/success.png');
+        $self->notify($message, __DIR__.'/icon/success.png');
     }
 
     /**
@@ -56,7 +56,7 @@ class VhostNotification {
     {
         $self = new static;
 
-        $self->notify($message, getcwd().'/src/icon/error.png');
+        $self->notify($message, __DIR__.'/icon/error.png');
     }
 
     /**
