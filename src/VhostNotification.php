@@ -5,7 +5,8 @@ namespace Vhost;
 use Joli\JoliNotif\Notification;
 use Joli\JoliNotif\NotifierFactory;
 
-class VhostNotification {
+class VhostNotification
+{
 
     /**
      * Create a new instance of a notifier factory.
@@ -72,7 +73,7 @@ class VhostNotification {
 
         $self->notification->setBody($message);
 
-        if(!is_null($icon)) {
+        if (!is_null($icon)) {
             $self->notification->setIcon($icon);
         }
 
