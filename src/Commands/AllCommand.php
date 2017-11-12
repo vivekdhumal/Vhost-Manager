@@ -34,15 +34,8 @@ class AllCommand extends Command
 
         $table = new Table($output);
 
-        $table->setHeaders(['Document Root', 'Virtual Host']);
-
-        foreach ($hosts as $host) {
-            $table->addRow([
-                $host['document_root'],
-                $host['server_name'],
-            ]);
-        }
-
-        $table->render();
+        $table->setHeaders(['Document Root', 'Virtual Host'])
+            ->setRows($hosts)
+            ->render();
     }
 }
