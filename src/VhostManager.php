@@ -54,12 +54,12 @@ class VhostManager
         if ($static->filesystem->exists($documentRoot)) {
             $apacheVhostsTags = $static->getApacheVhostsTags($documentRoot, $domain);
 
-            $apacheHostEdited = (bool) $static->filesystem->append(
+            $apacheHostEdited = $static->appendFileContent(
                 $static->config['apache_host_path'],
                 $apacheVhostsTags
             );
 
-            $hostEdited = (bool) $static->filesystem->append(
+            $hostEdited = $static->appendFileContent(
                 $static->config['windows_host_path'],
                 "\n{$static->config['local_ip']}       {$domain}"
             );
@@ -118,6 +118,18 @@ class VhostManager
         );
 
         return $removedFromWindowsHosts && $removedFromhttpdVhost;
+    }
+
+    /**
+     * Append the given file content.
+     *
+     * @param string $file
+     * @param string $content
+     * @return bool
+     */
+    protected function appendFileContent($file, $content)
+    {
+        return (bool) $this->filesystem->append($file, $content);
     }
 
     /**
