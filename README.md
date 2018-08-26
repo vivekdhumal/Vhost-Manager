@@ -17,7 +17,7 @@ cd Vhost-Manager
 
 composer install
 ```
-**\*also make sure to add `YOUR_DRIVE\Vhost-Manager\bin` path to windows environment variables.**
+**\*also make sure to add `YOUR_DRIVE\Vhost-Manager\bin` path to windows environment PATH variables.**
 
 ### Configuration
 
