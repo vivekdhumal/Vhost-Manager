@@ -4,7 +4,7 @@ return [
     /**
      * This apache httpd-vhosts.conf file path.
      */
-    'apache_host_path' => 'E:\xampp\apache\conf\extra\httpd-vhosts.conf',
+    'apache_host_path' => '',
     /**
      * Your windows hosts file path, generaly it'll remain same.
      */
@@ -13,7 +13,7 @@ return [
      * Your workspace path, this could be your xamp or wamp path.
      * for wamp it'll look like E:\wamp\www
      */
-    'workspace_path' => 'E:\xampp\htdocs',
+    'workspace_path' => '',
     /**
      * local ip address.
      */

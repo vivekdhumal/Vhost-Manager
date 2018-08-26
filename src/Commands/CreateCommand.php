@@ -40,18 +40,23 @@ class CreateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $domain = $input->getArgument('domain');
+        $output->writeln("Creating virtual host....");
+        try {
+            $hostCreated = VhostManager::createHost($input->getArgument('root'), $domain);
 
-        $hostCreated = VhostManager::createHost($input->getArgument('root'), $domain);
+            if ($hostCreated) {
+                VhostNotification::success("New virtual host \"http://{$domain}\" has been created.\nPlease restart your apache server.");
 
-        if ($hostCreated) {
-            VhostNotification::success("New virtual host \"http://{$domain}\" has been created.\nPlease restart your apache server.");
+                $output->writeln("<info>New virtual host \"http://{$domain}\" has been created.</info>");
+                $output->writeln("<info>Please restart your apache server.</info>");
+            } else {
+                VhostNotification::error("Something went wrong, please check your configuration.");
 
-            $output->writeln("<info>New virtual host \"http://{$domain}\" has been created.</info>");
-            $output->writeln("<info>Please restart your apache server.</info>");
-        } else {
-            VhostNotification::error("Something went wrong, please check your configuration.");
-
-            $output->writeln("<error>Something went wrong, please check your configuration.</error>");
+                $output->writeln("<error>Something went wrong, please check your configuration.</error>");
+            }
+        } catch (\Exception $e) {
+            $output->writeln("<error>{$e->getMessage()}</error>");
         }
+
     }
 }

@@ -37,6 +37,7 @@ class RemoveCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $domain = $input->getArgument('domain');
+        $output->writeln("Removing virtual host....");
 
         if (VhostManager::removeHost($domain)) {
             VhostNotification::success("The domain http://{$domain} has been removed successfully from your host files.");

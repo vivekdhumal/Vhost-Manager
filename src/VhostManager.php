@@ -52,11 +52,9 @@ class VhostManager
         $documentRoot = str_replace("\\", "/", trim($static->config['workspace_path'], '/')) . '/'. $documentRoot;
 
         if ($static->filesystem->exists($documentRoot)) {
-            $apacheVhostsTags = $static->getApacheVhostsTags($documentRoot, $domain);
-
             $apacheHostEdited = $static->appendFileContent(
                 $static->config['apache_host_path'],
-                $apacheVhostsTags
+                $static->getApacheVhostsTags($documentRoot, $domain)
             );
 
             $hostEdited = $static->appendFileContent(
@@ -66,7 +64,7 @@ class VhostManager
 
             return ($apacheHostEdited && $hostEdited);
         } else {
-            throw new FileNotFoundException("File does not exist at path {$documentRoot}");
+            throw new FileNotFoundException("Directory does not exist at path {$documentRoot}");
         }
     }
 
