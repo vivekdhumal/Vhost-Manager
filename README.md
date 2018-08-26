@@ -21,7 +21,7 @@ composer install
 
 ### Configuration
 
-At the root of the application you ll get the `config.php` file where you can change the path of your host files as per your local setup.
+At the root of the application you'll get the `config.sample.php` file rename it to `config.php` file where you can change the path of your host files as per your local setup.
 ```php
 return [
     /**
