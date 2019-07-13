@@ -97,7 +97,7 @@ class VhostManager
 
         $virtualHost = $static->getVhostFromDomain($domain);
 
-        if ($static->domainExists($domain) === false && $virtualHost === false) {
+        if (!$static->domainExists($domain) && !$virtualHost) {
             throw new \Exception("The domain {$domain} does not exist.");
         }
 
